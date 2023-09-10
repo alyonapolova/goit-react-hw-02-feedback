@@ -17,8 +17,10 @@ export class App extends Component {
 
   onLeaveFeedback = option => {
     option = option.toLowerCase();
-    this.setState(prevState => ({ [option]: prevState[option] + 1 }));
-    this.state.clickFeedback = true;
+    this.setState(prevState => ({
+      [option]: prevState[option] + 1,
+      clickFeedback: true,
+    }));
   };
 
   countTotalFeedback = () => {
