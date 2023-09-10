@@ -1,56 +1,41 @@
-import { Component } from 'react';
-import {
-  FeedbackDiv,
-  FeedbackBtnDiv,
-  FeedbackBtn,
-  FeedbackText,
-} from './Feedback.styled';
+import { FeedbackBtnDiv, FeedbackBtn, FeedbackText } from './Feedback.styled';
 
-export class Feedback extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-  handleClickGood = () => {
-    this.setState(prevState => ({ good: prevState.good + 1 }));
-    //console.log(this.state.good);
-  };
-  handleClickNeutral = () => {
-    this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
-  };
-  handleClickBad = () => {
-    this.setState(prevState => ({ bad: prevState.bad + 1 }));
-  };
+export const Section = ({ title, children }) => (
+  <div>
+    <h1>{title}</h1>
+    {children}
+  </div>
+);
 
-  countTotalFeedback = state => {
-    return state.good + state.neutral + state.bad;
-  };
+export const Statistics = ({
+  good,
+  neutral,
+  bad,
+  total,
+  positivePercentage,
+}) => {
+  return (
+    <div>
+      <FeedbackText>Good:{good}</FeedbackText>
+      <FeedbackText>Neutral:{neutral}</FeedbackText>
+      <FeedbackText>Bad: {bad}</FeedbackText>
+      <FeedbackText>Total: {total}</FeedbackText>
+      <FeedbackText>Positive feedback: {positivePercentage} %</FeedbackText>
+    </div>
+  );
+};
 
-  countPositiveFeedbackPercentage = () => {
-    const { good } = this.state;
-    const total = this.countTotalFeedback(this.state);
-    return total > 0 ? ((100 * good) / total).toFixed(0) : 0;
-  };
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return (
+    <FeedbackBtnDiv>
+      {' '}
+      {options.map(option => (
+        <FeedbackBtn key={option} onClick={() => onLeaveFeedback(option)}>
+          {option}
+        </FeedbackBtn>
+      ))}
+    </FeedbackBtnDiv>
+  );
+};
 
-  render() {
-    const totalFeedback = this.countTotalFeedback(this.state);
-    const positiveFeedback = this.countPositiveFeedbackPercentage(this.state);
-    return (
-      <FeedbackDiv>
-        <h1>Please leave feedback</h1>
-        <FeedbackBtnDiv>
-          <FeedbackBtn onClick={this.handleClickGood}>Good</FeedbackBtn>
-          <FeedbackBtn onClick={this.handleClickNeutral}>Neutral</FeedbackBtn>
-          <FeedbackBtn onClick={this.handleClickBad}>Bad</FeedbackBtn>
-        </FeedbackBtnDiv>
-        <h2>Statistics</h2>
-        <FeedbackText>Good:{this.state.good}</FeedbackText>
-        <FeedbackText>Neutral:{this.state.neutral}</FeedbackText>
-        <FeedbackText>Bad: {this.state.bad}</FeedbackText>
-        <FeedbackText>Total: {totalFeedback}</FeedbackText>
-        <FeedbackText>Positive feedback: {positiveFeedback} %</FeedbackText>
-      </FeedbackDiv>
-    );
-  }
-}
+export const Notification = ({ message }) => <h2>{message}</h2>;
