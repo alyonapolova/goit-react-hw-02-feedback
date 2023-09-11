@@ -6,7 +6,7 @@ import {
   Notification,
 } from './Feedback/Feedback';
 import { FeedbackDiv } from './Feedback/Feedback.styled';
-
+import PropTypes from 'prop-types';
 export class App extends Component {
   state = {
     good: 0,
@@ -59,3 +59,7 @@ export class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  clickFeedback: PropTypes.bool.isRequired,
+};

@@ -1,5 +1,5 @@
 import { FeedbackBtnDiv, FeedbackBtn, FeedbackText } from './Feedback.styled';
-
+import PropTypes from 'prop-types';
 export const Section = ({ title, children }) => (
   <div>
     <h1>{title}</h1>
@@ -39,3 +39,20 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 };
 
 export const Notification = ({ message }) => <h2>{message}</h2>;
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.string.isRequired,
+};
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.array.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+};
